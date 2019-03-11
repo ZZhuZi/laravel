@@ -1,125 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="shortcut icon" href="/RBAC/images/favicon.png" type="image/png">
+@extends('common.admin_base')
+@section('title','管理后台首页')
 
-  <title>表单页面</title>
-
-  <link href="/RBAC/css/style.default.css" rel="stylesheet">
-
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="/RBAC/js/html5shiv.js"></script>
-  <script src="/RBAC/js/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- js文件 -->
-  <script src="/RBAC/js/jquery-1.11.1.min.js"></script>
-  <script src="/RBAC/js/jquery-migrate-1.2.1.min.js"></script>
-  <script src="/RBAC/js/jquery-ui-1.10.3.min.js"></script>
-  <script src="/RBAC/js/bootstrap.min.js"></script>
-  <script src="/RBAC/js/modernizr.min.js"></script>
-  <script src="/RBAC/js/jquery.sparkline.min.js"></script>
-  <script src="/RBAC/js/toggles.min.js"></script>
-  <script src="/RBAC/js/retina.min.js"></script>
-  <script src="/RBAC/js/jquery.cookies.js"></script>
-
-  <script src="/RBAC/js/flot/jquery.flot.min.js"></script>
-  <script src="/RBAC/js/flot/jquery.flot.resize.min.js"></script>
-  <script src="/RBAC/js/flot/jquery.flot.spline.min.js"></script>
-  <script src="/RBAC/js/morris.min.js"></script>
-  <script src="/RBAC/js/raphael-2.1.0.min.js"></script>
-
-  <script src="/RBAC/js/custom.js"></script>
-  <script src="/RBAC/js/dashboard.js"></script>
-  <!-- <script src="/js/app.js" ></script> -->
-
-</head>
-
-<body>
-
-<section>
-
-  <div class="leftpanel">
-
-    <div class="logopanel">
-      <h1><span>[</span> 管理后台 <span>]</span></h1>
-    </div><!-- logopanel -->
-
-    <div class="leftpanelinner">
-
-      <!-- This is only visible to small devices -->
-      <div class="visible-xs hidden-sm hidden-md hidden-lg">
-        <div class="media userlogged">
-          <img alt="" src="/RBAC/images/photos/loggeduser.png" class="media-object">
-          <div class="media-body">
-            <h4>John Doe</h4>
-            <span>"Life is so..."</span>
-          </div>
-        </div>
-
-        <h5 class="sidebartitle actitle">Account</h5>
-        <ul class="nav nav-pills nav-stacked nav-bracket mb30">
-          <li><a href="profile.html"><i class="fa fa-user"></i> <span>Profile</span></a></li>
-          <li><a href=""><i class="fa fa-cog"></i> <span>Account Settings</span></a></li>
-          <li><a href=""><i class="fa fa-question-circle"></i> <span>Help</span></a></li>
-          <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
-        </ul>
-      </div>
-
-      <h5 class="sidebartitle">Navigation</h5>
-      <ul class="nav nav-pills nav-stacked nav-bracket">
-        <li class="active"><a href="首页.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
-        <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>表单</span></a>
-          <ul class="children">
-            <li><a href="表单页面.html"><i class="fa fa-caret-right"></i> 添加/编辑表单</a></li>
-          </ul>
-        </li>
-        <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>列表</span></a>
-          <ul class="children">
-            <li><a href="列表模板.html"><i class="fa fa-caret-right"></i> 列表页面</a></li>
-          </ul>
-        </li>
-      </ul>
-
-    </div><!-- leftpanelinner -->
-  </div><!-- leftpanel -->
-  
-  <div class="mainpanel">
-
-    <div class="headerbar">
-
-      <a class="menutoggle"><i class="fa fa-bars"></i></a>
-
-      <form class="searchform" action="index.html" method="post">
-        <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
-      </form>
-
-      <div class="header-right">
-        <ul class="headermenu">
-          <li>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <img src="/RBAC/images/photos/loggeduser.png" alt="" />
-                John Doe
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 账户设置</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 修改密码</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-log-out"></i> 退出登录</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div><!-- header-right -->
-
-    </div><!-- headerbar -->
-    
+@section('pageHeader')
     <div class="pageheader">
       <h2><i class="fa fa-edit"></i> 表单 <span>Subtitle goes here...</span></h2>
       <div class="breadcrumb-wrapper">
@@ -131,7 +13,8 @@
         </ol>
       </div>
     </div>
-    
+@endsection
+@section('content')
     <div class="contentpanel">
       <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -312,82 +195,78 @@
 
       
     </div><!-- contentpanel -->
-  </div><!-- mainpanel -->
-
-  
-</section>
+@endsection
 
 
-<script>
-jQuery(document).ready(function(){
+// <script>
+// jQuery(document).ready(function(){
     
-    "use strict";
+//     "use strict";
   
-  // Tags Input
-  jQuery('#tags').tagsInput({width:'auto'});
+//   // Tags Input
+//   jQuery('#tags').tagsInput({width:'auto'});
   
-  // Select2
-  jQuery(".select2").select2({
-    width: '100%'
-  });
+//   // Select2
+//   jQuery(".select2").select2({
+//     width: '100%'
+//   });
    
-  // Textarea Autogrow
-  jQuery('#autoResizeTA').autogrow();
+//   // Textarea Autogrow
+//   jQuery('#autoResizeTA').autogrow();
   
-  // Color Picker
-  if(jQuery('#colorpicker').length > 0) {
-	 jQuery('#colorSelector').ColorPicker({
-			onShow: function (colpkr) {
-				jQuery(colpkr).fadeIn(500);
-				return false;
-			},
-			onHide: function (colpkr) {
-				jQuery(colpkr).fadeOut(500);
-				return false;
-			},
-			onChange: function (hsb, hex, rgb) {
-				jQuery('#colorSelector span').css('backgroundColor', '#' + hex);
-				jQuery('#colorpicker').val('#'+hex);
-			}
-	 });
-  }
+//   // Color Picker
+//   if(jQuery('#colorpicker').length > 0) {
+// 	 jQuery('#colorSelector').ColorPicker({
+// 			onShow: function (colpkr) {
+// 				jQuery(colpkr).fadeIn(500);
+// 				return false;
+// 			},
+// 			onHide: function (colpkr) {
+// 				jQuery(colpkr).fadeOut(500);
+// 				return false;
+// 			},
+// 			onChange: function (hsb, hex, rgb) {
+// 				jQuery('#colorSelector span').css('backgroundColor', '#' + hex);
+// 				jQuery('#colorpicker').val('#'+hex);
+// 			}
+// 	 });
+//   }
   
-  // Color Picker Flat Mode
-	jQuery('#colorpickerholder').ColorPicker({
-		flat: true,
-		onChange: function (hsb, hex, rgb) {
-			jQuery('#colorpicker3').val('#'+hex);
-		}
-	});
+//   // Color Picker Flat Mode
+// 	jQuery('#colorpickerholder').ColorPicker({
+// 		flat: true,
+// 		onChange: function (hsb, hex, rgb) {
+// 			jQuery('#colorpicker3').val('#'+hex);
+// 		}
+// 	});
    
-  // Date Picker
-  jQuery('#datepicker').datepicker();
+//   // Date Picker
+//   jQuery('#datepicker').datepicker();
   
-  jQuery('#datepicker-inline').datepicker();
+//   jQuery('#datepicker-inline').datepicker();
   
-  jQuery('#datepicker-multiple').datepicker({
-    numberOfMonths: 3,
-    showButtonPanel: true
-  });
+//   jQuery('#datepicker-multiple').datepicker({
+//     numberOfMonths: 3,
+//     showButtonPanel: true
+//   });
   
-  // Spinner
-  var spinner = jQuery('#spinner').spinner();
-  spinner.spinner('value', 0);
+//   // Spinner
+//   var spinner = jQuery('#spinner').spinner();
+//   spinner.spinner('value', 0);
   
-  // Input Masks
-  jQuery("#date").mask("99/99/9999");
-  jQuery("#phone").mask("(999) 999-9999");
-  jQuery("#ssn").mask("999-99-9999");
+//   // Input Masks
+//   jQuery("#date").mask("99/99/9999");
+//   jQuery("#phone").mask("(999) 999-9999");
+//   jQuery("#ssn").mask("999-99-9999");
   
-  // Time Picker
-  jQuery('#timepicker').timepicker({defaultTIme: false});
-  jQuery('#timepicker2').timepicker({showMeridian: false});
-  jQuery('#timepicker3').timepicker({minuteStep: 15});
+//   // Time Picker
+//   jQuery('#timepicker').timepicker({defaultTIme: false});
+//   jQuery('#timepicker2').timepicker({showMeridian: false});
+//   jQuery('#timepicker3').timepicker({minuteStep: 15});
 
   
-});
+// });
 </script>
 
 
-</body>
-</html>
+

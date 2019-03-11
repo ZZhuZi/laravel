@@ -41,9 +41,19 @@ Route::prefix("admin")->group(function(){
 	// 	return "登录成功";
 	// })->middleware('admin_auth');
 	Route::any('index','Admin\HomeController@index');
-	Route::any('login','Admin\LoginController@login');
+	// Route::any('login','Admin\LoginController@login');
+	Route::any('login','Admin\LoginController@index');
+	Route::any('doLogin','Admin\LoginController@doLogin');
+	Route::any('loginout','Admin\LoginController@loginout');
+
 
 });
+
+// Route::middleware('AdminAuth')->prefix('admin')->group(function(){
+// 	Route::any('index','Admin\HomeController@index');
+// 	Route::any('login','Admin\LoginController@login');
+
+// });
 
 // 测试路由组 中间件
 Route::middleware("check_age")->group(function(){

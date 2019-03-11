@@ -25,43 +25,7 @@ class HomeController extends Controller
 
 
 
- 	protected $table = 'Permission';
- 	const 
- 	    IS_MENU = 1,
- 	    IS_NI_MENU = 2,
- 	    END = true;
-
-	public static function getMenus(){
-		$menus = self::select('id','fid','name','url')
-				->where('is_menu',self::IS_MENU)
-				->orderBy('sort')
-				->get()
-				->;
-
-		
-
-		return redirect('/admin/login');
-	}
-	/*
-	* 无限极分类的数据组装
-	* @return array
-	*/
-	public static function buildTree($data,$fid=0){
-		if(empty($data)){
-			return [];
-		}
-		static $menus = [];
-		foreach ($data as $key => $value) {
-			if($value['fid'] == $fid){
-				if(!isset($menus[$fid])){
-					$menus[$value['id']] = $value;
-				}else{
-					$menus[$fid]['son'][$value['id']] = $value;
-				}
-			}
-			unset($data[$key]);
-			self::buildTree($data,$value['id']);
-		}
-	}
-	return $menus;
+ 	
+	
+	
 }

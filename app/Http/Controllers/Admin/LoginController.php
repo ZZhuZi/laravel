@@ -13,10 +13,11 @@ class LoginController extends Controller
  		return view('admin.login');
  	}
  	public function index(Request $request){
- 		$session = $reqeust->session();
- 		if($session->has('user')){          // 如果存在session 信息的话可以不登录
- 			return redirect('/admin/home');
- 		}
+ 		// $session = $request->session();
+ 		// if($session->has('user')){          // 如果存在session 信息的话可以不登录
+ 		// 	return redirect('/admin/login');
+ 		// }
+ 		return view('admin.login');
  	}
 	public function doLogin(Request $request){
 		$params = $request->all();
@@ -42,7 +43,7 @@ class LoginController extends Controller
 		}
 
 		// 通过用户名获取用户的信息
-		$userInfo = AdminUsers::getUserByName($params['username']);
+		$userInfo = AdminUser::getUserByName($params['username']);
 
 		//用户不存在
 		if(empty($userInfo)){
@@ -52,7 +53,7 @@ class LoginController extends Controller
 			];
 			return json_encode($return);
 		}else{
-			$postPwd = md5($params['passsword']);
+			$postPwd = md5($params['password']);
 			if($postPwd !== $userInfo->password){
 				$return = [
 					'code' => 4001,
@@ -78,7 +79,7 @@ class LoginController extends Controller
 	/*
 	*用户退出的页面
 	*/
-	public function logout(Request $request){
+	public function loginout(Request $request){
 		$request->session()->forget('user');
 		return redirect('/admin/login');
 	}
