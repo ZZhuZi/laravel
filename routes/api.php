@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/****************************【首页】**************************************************************/
+// 首页banner图接口
+Route::post('home/banners','Api\HomeController@banners');

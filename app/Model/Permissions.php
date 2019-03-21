@@ -3,11 +3,12 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Tools\ToolsAdmin;
 
 class Permissions extends Model
 {
     //
-    protected $table = 'Permissions';
+    protected $table = 'permissions';
  	const 
  	    IS_MENU = 1,     //是菜单
  	    IS_NI_MENU = 2,   // 不是菜单
@@ -16,13 +17,18 @@ class Permissions extends Model
 	* 获取左侧菜单栏的权限数据
 	* @return array
  	*/
-	public static function getMenus(){
+	public static function getMenus($user=[]){
 		$permissions = self::select('id','fid','name','url')
+
 				->where('is_menu',self::IS_MENU)
 				->orderBy('sort')
 				->get()
 				->toArray();   //转化为数组
+			// dd($permissions);
+
 		$leftMenu = ToolsAdmin::buildTree($permissions);	
+			// dd($leftMenu);
+		
 		return $leftMenu;
 	}
 
@@ -52,6 +58,22 @@ class Permissions extends Model
 	*/
 	public static function delRecord($id){
 		return self::where('id',$id)->delete();
+	}
+
+	/*
+	* 通过权限的主键id获取权限的url地址集合
+	* @return array
+	*/
+	public static function getUrlsByIds($pids){
+		$list = self::select('url')
+							->whereIn('id',$pids)
+							->get()
+							->toArray();
+		$urls = [];
+		foreach($permissions as $key => $value){
+			$urls[] = $value['url'];
+		}
+		return $urls;
 	}
 
 

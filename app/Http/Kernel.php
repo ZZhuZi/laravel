@@ -57,6 +57,10 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'admin_auth'=>\Illuminate\Routing\Middleware\AdminAuth::class, // 
+
+        'admin_auth'=>\App\Http\Middleware\AdminAuth::class, //  自定义监测后台登录的中间件
+        'permission_auth'=>\App\Http\Middleware\PermissionAuth::class, // 自定义监测后台权限验证的中间件
+
+
     ];
 }

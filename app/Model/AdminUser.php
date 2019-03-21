@@ -18,7 +18,7 @@ class AdminUser extends Model
 					->where('status',2)
 					->first();
 			
-			dump($userInfo);exit;		
+			// dump($userInfo);exit;		
 		// DB::connection()->enableQueryLog();  // 开启QueryLog
 		// \App\User::find(1);
 		// dump(DB::getQueryLog());

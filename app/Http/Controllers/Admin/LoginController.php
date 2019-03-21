@@ -21,6 +21,7 @@ class LoginController extends Controller
  	}
 	public function doLogin(Request $request){
 		$params = $request->all();
+		// dd($params);
 		$return = [
 			'code' => 2000,
 			'msg'  => '登录成功'
@@ -44,6 +45,7 @@ class LoginController extends Controller
 
 		// 通过用户名获取用户的信息
 		$userInfo = AdminUser::getUserByName($params['username']);
+		// dd($userInfo);
 
 		//用户不存在
 		if(empty($userInfo)){
