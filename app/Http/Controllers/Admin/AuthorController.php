@@ -14,6 +14,7 @@ class AuthorController extends Controller
     	$author = new Author();
 
     	$assign['authors'] = $author->getLists();
+        // dd($assign);
 
     	return view('admin.author.list', $assign);
     }

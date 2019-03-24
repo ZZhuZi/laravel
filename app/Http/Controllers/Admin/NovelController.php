@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 use App\Model\Novel;
 use App\Model\Category;
 use App\Model\Author;
@@ -15,8 +16,9 @@ class NovelController extends Controller
     public function list()
     {
     	$novel = new Novel();
-
+        dd(1);
     	$assign['novels'] = $novel->getLists();
+        dd($assign);
 
     	return view('admin.novel.list',$assign);
     }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Category;
+use App\Model\Novel;
+
 
 class CategoryController extends Controller
 {
@@ -19,6 +21,24 @@ class CategoryController extends Controller
     		'data' =>$cList
     	];
     	return json_encode($return);
+    }
+
+    /*
+    * 获取小说的分类列表
+    */
+    public function getCategoryNovel(Request $request){
+        $cId = $request->input('c_id',1);
+        $novel = new Novel();
+
+        $list = $novel->getNovelByCid($cId);
+
+        $return = [
+            'code' =>2000,
+            'msg'  =>"获取分类小说列表的接口",
+            'data' =>$list
+        ];
+
+        return josn_encode($return);
     }
 
     

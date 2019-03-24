@@ -28,8 +28,6 @@
 						<td>{{$author['author_name']}}</td>
 						<td>{{$author['author_desc']}}</td>
 						<td>
-						<!-- <a href="{{ route('admin.author.edit',['id'=>$author['id'] ])}}">修改</a> -->
-						<!-- <a href="{{ route('admin.author.permission',['id'=>$author['id'] ])}}">权限</a> -->
 						<a href="{{ route('admin.author.del',['id'=>$author['id'] ])}}">删除</a>
 						</td>
 					</tr>
