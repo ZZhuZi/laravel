@@ -17,9 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 /**************************************[小程序首页]*****************************************************8*/
+// Route::any('/home/banners','Api\HomeController@banners');
 
+Route::prefix('api')->group(function(){
 // 首页banner图接口
-Route::post('home/banners','Api\HomeController@banners');
+Route::any('/home/banners','Api\HomeController@banners');
+// Route::any('home/banners','Api\HomeController@banners');
+
 //首页最新小说的接口
 Route::post('home/news','Api\HomeController@newsList');
 // 首页排行最高的小说
@@ -49,6 +53,6 @@ Route::any('chapter/list/{novel_id}','Api\ChapterController@chapterList');
 Route::any('chapter/info/{id}','Api\ChapterController@chapterInfo');
 
 
-
+});
 
 

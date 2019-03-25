@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;\
+use App\Http\Controllers\Controller;
 use App\Model\Novel;
 
 class HomeController extends Controller
@@ -11,6 +11,7 @@ class HomeController extends Controller
     //小说首页banner图
     public function banners(Request $request){
     	$num = $request->input('num',3);
+          dd($num);
         $novel = new Novel();
         $list = $novel->getBanners();
 
@@ -19,6 +20,7 @@ class HomeController extends Controller
             'msg'  =>"获取banner成功",
             'data' =>$list
         ];
+
         return json_encode($return);
     }
 
@@ -50,18 +52,18 @@ class HomeController extends Controller
         return json_encode($return);
     }
 
-    //获取首页伴儿图接口
-    bannerList:function(){
-    	var that = this;
-    	wx.request({
-    		url:'http://www.laravel.com/api/home/banners',
-    		data:{num:3},
-    		methods:'post',
-    		dataType:"json",
-    		success:function(res){
+    // //获取首页伴儿图接口
+    // bannerList:function(){
+    // 	var that = this;
+    // 	wx.request({
+    // 		url:'http://www.laravel.com/api/home/banners',
+    // 		data:{num:3},
+    // 		methods:'post',
+    // 		dataType:"json",
+    // 		success:function(res){
     			
-    		}
-    	})
-    },
+    // 		}
+    // 	})
+    // },
 
 }
