@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Log;
 class AdminUsersController extends Controller
 {
+        // $user = DB::table('study_lottery_user')->where('phone',$phone)->first();
     //
     /*
 	* 用户添加页面

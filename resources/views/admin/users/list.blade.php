@@ -32,6 +32,7 @@
                       <tr>
                       	<td>{{$user->id}}</td>
                       	<td><image src="{{$user->image_url}}" style="width:60px;border:#d4d4d4 1px solid;"></td>
+                        
                       	<td>{{$user->username}}</td>
                       	<td>{{$user->is_super == 1 ? "否" : "是"}}</td>
                       	<td>{{$user->status == 1 ? "正常" : "禁用"}}</td>

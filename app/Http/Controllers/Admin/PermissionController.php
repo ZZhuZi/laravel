@@ -4,84 +4,69 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Model\Permissions;
+
+
 class PermissionController extends Controller
 {
-    //权限列表
+    // 权限列表
     public function list(){
-    	return view('admin.permission.list');
+		// $list = DB::table('permissions')->select()->paginate(2);
+		// $data = [];
+  //   	foreach ($list as $key => $value) {
+  //   		$data[$key] = [
+  //       		"id" => $value->id,
+		// 	    "fid" => $value->fid,
+		// 	    "name" => $value->name,
+		// 	    "url" => $value->url,
+		// 	    "is_menu" => $value->is_menu,
+		// 	    "sort" => $value->sort
+			   
+  //       	];
+  //   	}
+  //       // dd($list);
+  //    	return view('admin.permission.list1',['permissions'=>$data]);
+    	return view('admin.permission.list1');
     }
-    /*
-	* 获取权限列表
-	*@param $fid int default 0
-	* @return json
-    */
+
+    //获取权限列表
     public function getPermissionList($fid = 0){
     	$return = [
     		'code' => 2000,
     		'msg'  => '获取列表成功',
-    		'data' =>[]
-     	];
-     	$list = Permissions::getListByFid($fid);
-     	$return['data'] = $list;
-
-        // dd($return);
-     	return json_encode($return);
-    }
-    /*
-	* 权限添加页面
-
-    */
-     public function create(){
-    	
-     	$list = Permissions::getListByFid();
-        // dd($list);
-     	return view('admin.permission.create',['permissions'=>$list]);
-    }
-
-      /*
-	* 执行权限添加功能
-
-    */
-     public function doCreate(Request $request){ 
-    	$params = $request ->all();
-        // dd($params);
-    	$data = [
-    		'fid' => $params['fid'],
-    		'name' => $params['name'],
-    		'url' => $params['url'],
-    		'is_menu' => $params['is_menu'],
-    		'sort' => $params['sort'],
+    		'data' => []
     	];
-     	$res = Permissions::addRecord($data); // 执行添加的操作
-        // dd($res);
-     	if($res){
-     		return redirect('/admin/permission/list');
-     	}else{
-     		return redirect()->back();
-     	}
+    	$list1 =  DB::table('permissions')->select()->where('fid',$fid)->paginate(2);
+    	$data = [];
+    	foreach ($list1 as $key => $value) {
+    		$data[$key] = [
+        		"id" => $value->id,
+			    "fid" => $value->fid,
+			    "name" => $value->name,
+			    "url" => $value->url,
+			    "is_menu" => $value->is_menu,
+			    "sort" => $value->sort
+			   
+        	];
+    	}
+     	// $return['list'] = $list1;  // 对象
+     	// $return['list'] = $data;  // 数组
+
+
+
+    	// dd($data);
+    	// dd($list);
+     	$list = Permissions::getListByFid($fid);
+    	// dd($list);
+     	$return['list'] = $list;  // 数组
+
+     
+
+    	return view('admin.permission.list2',$return);
+
+     	// return json_encode($return);
     }
 
-    /*
-	* 删除权限
-	*@param $fid int default 0
-	* @return json
-    */
-    public function del($id){
-    	
-     	$res = Permissions::delRecord($id);
-     	if($res){
-     		$return = [
-	    		'code' => 2000,
-	    		'msg'  => '删除成功'
-	     	];
-     	}else{
-     		$return = [
-	    		'code' => 4000,
-	    		'msg'  => '删除失败'
-	     	];
-     	}
-     	return json_encode($return);
-    }
-
+   
 }

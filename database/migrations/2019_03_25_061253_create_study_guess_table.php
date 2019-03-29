@@ -15,9 +15,9 @@ class CreateStudyGuessTable extends Migration
     {
         Schema::create('study_guess', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('team_a')->comment('球队A');
-            $table->integer('team_b')->comment('球队A');
-            $table->timestamp('end_time',32)->comment('过期时间');
+            $table->string('team_a')->comment('球队A');
+            $table->string('team_b')->comment('球队A');
+            $table->char('end_at',32)->comment('过期时间');
             $table->enum('result',['1','2','3'])->default('1')->comment('胜负结果 1 平 2 胜 3 负');
             $table->timestamps();
         });

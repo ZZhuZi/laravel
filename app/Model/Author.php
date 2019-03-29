@@ -21,6 +21,13 @@ class Author extends Model
     public function delRecord($id){
     	return self::where('id',$id)->delete();
     }
+     /**
+     *执行作者添加
+     */
+    public function addRecord($data)
+    {
+        return self::insert($data);
+    }
     /*
 	* 作者分页显示
     */

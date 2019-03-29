@@ -28,6 +28,10 @@
 					<tr v-for="user in list">
 						<td>{user.id}</td>
 						<td><image src='{user.image_url}' style="width: 60px;"></td>
+						<!-- <td><image src="{user['image_url']}" style="width: 60px;"></td> -->
+
+                          <!-- <td><img src="{  s{  $novel['image_url']ss}s}" style="width: 60px;"></td> -->
+
 
 						<td>{user.username}</td>	
 						<td>{user.username == 1 ? "否" : "是"}</td>	

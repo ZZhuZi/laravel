@@ -11,10 +11,23 @@ class Novel extends Model
 
     //获取列表
     public function getLists(){
-    	$signInfo = self::select('novel.id','c_name','author_name','c_id','a_id','name','image_url','status','tags')
-    				->join('category','novel.c_id','=','category.id')
-    				->orderBy('novel.id','desc')
-    				->paginate(4);
+
+    	// $signInfo = self::select('novel.id','c_name','author_name','c_id','a_id','name','image_url','status','tags')
+    	// 			->join('category','novel.c_id','=','category.id');
+    	// 			// ->orderBy('novel.id','desc')
+    	// 			// ->paginate(4);
+
+        $signInfo = self::select('novel.id','c_name','author_name','c_id','a_id','name','image_url','status','tags')
+            ->join('category','novel.c_id','=','category.id')//连分类表
+            ->join('author','novel.a_id','=','author.id')
+            ->orderBy('novel.id','desc')
+            ->paginate(4);
+            // ->toArray(); 
+        // $signInfo = self::select('c_id','a_id','name','image_url','status','tags')->get()->toArray();
+
+        //             dd($signInfo);
+
+
 		return $signInfo;
     }
 
@@ -39,7 +52,7 @@ class Novel extends Model
     }
 
        //获取小程序首页的banner图
-    public function getBannners($num = 3){
+    public function getBanners($num = 3){
     	$list = self::select('id','image_url')
     				->orderBy('id','desc')
     				->limit($num)
