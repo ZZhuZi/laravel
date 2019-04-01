@@ -78,7 +78,6 @@ class AdminUsers extends Model
     public static function getList()
     {
         $userInfo = self::paginate(5);
-        
         return $userInfo;
     }
 

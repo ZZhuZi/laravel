@@ -7,9 +7,8 @@
  stu_phone char(11) not null default '' comment '联系电话信息'
 )engine = innodb default charset=utf8 collate = utf8_general_ci;
 
-<!-- alter table student add degree varchar(200) -->
 
- alter table student modify degree enum('1','2','3','4','5') default '1' comment '学历  1专科 2本科 3小学 4初中 5高中'
+ alter table student add degree enum('1','2','3','4','5') default '1' comment '学历  1专科 2本科 3小学 4初中 5高中'
 
 alter table student add age tinyint(200)
 
@@ -24,7 +23,7 @@ select * from student where degree = "2"
 
 select stu_sex,count(*) from student group by stu_sex
 
-select count(15<age>20) from student group by age
+select count(*) from student group by age having 15<age>20,10<age>25
 
 1.创建一张学生表，包含学号，姓名，性别，家庭住址，联系电话信息
 2.修改学生表结构，增加学历字段
