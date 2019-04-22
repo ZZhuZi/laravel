@@ -8,7 +8,7 @@ class CreateJyUserTable extends Migration
 {
     /**
      * Run the migrations.
-     *用户表
+     *会员表
      * @return void
      */
     public function up()
@@ -27,6 +27,7 @@ class CreateJyUserTable extends Migration
             $table->timestamps();
             $table->unique('phone');
             $table->index('status');
+            $table->engine = "InnoDB";
         });
     }
 

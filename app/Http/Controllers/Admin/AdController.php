@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Model\Ad;
 use App\Model\AdPosition;
 use App\Tools\ToolsAdmin;
+use App\Tools\ToolsOss;
+use Excel;
 
 class AdController extends Controller
 {
@@ -25,6 +27,13 @@ class AdController extends Controller
     	// $assign['list'] = $ad->getAdList();
 
     	$assign['list'] = $this->ad->getAdList();
+
+        $oss = new ToolsOss();
+        //处理图片对象
+        foreach ($assign['list'] as $key => $value) {
+           $value['image_url'] = $oss->getUrl($value['image_url'],true);
+           $assign['list'][$key] = $value;
+        }
     	return view('/admin/ad/list',$assign);
     }
 
@@ -92,6 +101,14 @@ class AdController extends Controller
     	}
 
     	return redirect('/admin/ad/list');
+    }
+
+    //删除广告
+    public function del($id)
+    {
+        $ad = new Ad();
+        $res = $this->delData($ad,$id);
+        return redirect('/admin/ad/list');
     }
 
 }

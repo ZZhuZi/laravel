@@ -1,7 +1,5 @@
 <?php 
 namespace App\Tools;
-// use App\Model\UserRole;
-// use App\Model\PolePermission;
 
 /*
 * 公共方法
@@ -13,21 +11,21 @@ class ToolsAdmin
 	* @param $array $data
 	* @param $fid 父类id
 	*/
-	public static function buildTree($data,$fid=0){
+	public static function buildTree($data,$fid=0,$fKey="fid"){
 		if(empty($data)){
 			return [];
 		}
 		static $menus = []; // 定义一个静态变量，用来储存无限级分类的数据
 
 		foreach ($data as $key => $value) {
-			if($value['fid'] == $fid){       // 当前循环的内容中fid是否等于函数fid参数
+			if($value[$fKey] == $fid){       // 当前循环的内容中fid是否等于函数fid参数
 				if(!isset($menus[$fid])){   // 如果数据没有fid的key
 					$menus[$value['id']] = $value;
 				}else{
 					$menus[$fid]['son'][$value['id']] = $value;
 				}
 				unset($data[$key]);
-				self::buildTree($data,$value['id']); //执行递归调用
+				self::buildTree($data,$value['id'],$fKey); //执行递归调用
 			}
 		}
 		return $menus;
@@ -60,10 +58,16 @@ class ToolsAdmin
 	* @param $files $object
 	* #return string url
 	*/
-	public static function uploadFile($files){
+	public static function uploadFile($files,$isOss=true){
 		//参数为空
 		if(empty($files)){
 			return '';
+		}
+		if($isOss){
+			// oss文件上传
+			$oss = new ToolsOss();
+			$url = $oss->putFile($files);
+			return $url;
 		}
 		// 文件上传目录
 		$basePath  = 'uploads/'.date('Y-m-d',time());
@@ -99,7 +103,8 @@ class ToolsAdmin
 
 		$roleP = new \App\Model\RolePermission();
 		// $roleP = new  RolePermission();
-		$pids = $roleP->getPermissionByRoleId($roles->role_id);
+		$pids = $roleP->getPermissionByRoleId($roles->role_id); //根据用户的角色id去调用权限id集合
+
 		return $pids;
 	}
 
@@ -114,7 +119,7 @@ class ToolsAdmin
 	}
 
 	public static function buildGoodsSn($string = 16){
-		return "JY".date('YmdHis',$string);
+		return "JY".date('YmdH',time()).rand(1,1000);
 	}
 }
 
