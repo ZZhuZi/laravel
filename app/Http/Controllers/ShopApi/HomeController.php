@@ -32,6 +32,7 @@ class HomeController extends Controller
     {
     	//广告位的id参数
     	$position = $request->input('postion_id',1);
+      // dd($position);
     	//广告的条数
     	$nums  = $request->input('nums',1);
     	$currentTime = date("Y-m-d H:i:s");
@@ -44,12 +45,14 @@ class HomeController extends Controller
     				->get();
     	//组装广告的数据
     	$ad_data = [];
-    	$toolsOss = new  ToolsOss();
+    	$oss = new  ToolsOss();
     	foreach ($ad as $key => $value) {
     		$ad_data[$key] = [
     			'id'  => $value->id,
     			'ad_name' => $value->ad_name,
-    			'image_url' => $toolsOss->getUrl($value->image_url, true),
+    			// 'image_url' => $oss->getUrl($value->image_url, true),
+          // 'image_url' => $value->image_url,
+          'image_url' => file_exists($value->image_url) ? "http://www.laravel.com/".$value->image_url : $oss->getUrl($value->image_url,true),
     			'ad_link'   => $value->ad_link
     		];
     	}
@@ -86,19 +89,26 @@ class HomeController extends Controller
 			    			->limit($nums)
 			    			->get();
     	}
-    	
-    	//dd($goods);
+    	// dd($goods);
     	$goodsList = [];
-    	$toolsOss = new ToolsOss();
+    	$oss = new ToolsOss();
     	foreach ($goods as $key => $value) {
-    		$gallery = \DB::table('jy_goods_gallery')->where('goods_id',$value->id)->first();
-    		$goodsList[$key] = [
-    			'id'  => $value->id,
-    			'goods_name' => $value->goods_name,
-    			'market_price' => $value->market_price,
-    			'image_url'    => !empty($gallery->image_url) ? $toolsOss->getUrl($gallery->image_url, true) : "",
-    		];
+      		$gallery = \DB::table('jy_goods_gallery')->where('goods_id',$value->id)->first();
+          // dd($gallery);
+          // dd($value->id);
+      		$goodsList[$key] = [
+        			'id'  => $value->id,
+        			'goods_name' => $value->goods_name,
+        			'market_price' => $value->market_price,
+'image_url' => file_exists($gallery->image_url) ? "http://www.laravel.com/".$gallery->image_url : $oss->getUrl($gallery->image_url,true),
+
+        			// 'image_url'    => !empty($gallery->image_url) ? $oss->getUrl($gallery->image_url, true) : "",
+              // 'image_url'    => $gallery->image_url,
+
+      		];
     	}
+          // dd($gallery);
+
     	$return = [
    	    	'code' => 2000,
    	    	'msg'  => "成功",
@@ -107,7 +117,7 @@ class HomeController extends Controller
     	$this->returnJson($return);
     }
     //品牌列表
-    public function brand(Request $request)
+    public function brands(Request $request)
     {
     	$nums = $request->input('nums',9);
     	$object = new Brand();

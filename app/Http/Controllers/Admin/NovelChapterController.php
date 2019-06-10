@@ -1,59 +1,61 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\NovelCategory;
-
+use App\Model\NovelChapter;
 class NovelChapterController extends Controller
 {
     //
-
-	//分类列表
-    public function list()
+    //小说章节添加页面
+    public function create($id)
     {
-    	$category = new Category();
-
-    	$assgin['categorys'] = $category->getLists();
-    	return view('admin.novel.categoryList',$assgin);
+        $assign['novel_id'] = $id;
+        return view('admin.novel.chapterCreate',$assign);
     }
-
-    //小说分类添加页面
-    public function create()
-    {
-    	return view('admin.novel.categoryCreate');
-    }
-
-    //保存分类
+    //保存章节
     public function store(Request $request)
     {
-
-    	$params = $request->all();
-
-    	$data = [
-    		'c_name' => $params['c_name'] ?? "",
-    	];
-
-    	$category = new Category();
-
-    	$res = $category->addRecord($data);
-
-    	if(!$res){
-    		return redirect()->back();
-    	}
-
-    	return redirect('/admin/novel/category/list');
+        $params = $request->all();
+        $chapter = new NovelChapter();
+        unset($params['_token']);
+        $res = $chapter->addRecord($params);
+        if(!$res){
+            return redirect('/admin/nove/chapter/add/'+$params['novel_id']);
+        }
+        return redirect('/admin/novel/list');
     }
-
-    //删除分类
+    //获取章节列表
+    public function list($novelId = 0)
+    {
+        $chapter = new NovelChapter();
+        $assign['chapter_list'] = $chapter->getLists($novelId);
+        return view('admin.novel.chapterList', $assign);
+    }
+    //编辑页面
+    public function edit($id)
+    {
+        $chapter = new NovelChapter();
+        $assign['chapter'] = $chapter->getChapter($id);
+        return view('admin.novel.chapterEdit',$assign);
+    }
+    //执行编辑
+    public function doEdit(Request $request)
+    {
+        $params = $request->all();
+        $chapter = new NovelChapter();
+        $id = $params['id'];//获取主键id
+        unset($params['_token']);
+        $res = $chapter->editRecord($params,$id);
+        if(!$res){
+            return redirect('/admin/nove/chapter/edit/'+$params['novel_id']);
+        }
+        return redirect('/admin/novel/chapter/list/'.$params['novel_id']);
+    }
+    //章节删除
     public function del($id)
     {
-
-    	$category = new Category();
-
-    	$category->delRecord($id);
-
-    	return redirect('/admin/novel/category/list');
+        $chapter = new NovelChapter();
+        $chapter->delRecord($id);
+        return redirect('/admin/novel/chapter/list');
     }
 }

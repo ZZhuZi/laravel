@@ -33,6 +33,9 @@ class Novel extends Model
 
      //小说添加
     public function addRecord($data){
+        // dd($data);
+        // dd(self::insert($data));
+
     	return self::insert($data);
     }
 
@@ -43,7 +46,7 @@ class Novel extends Model
 
        //小说删除
     public function delRecord($id){
-    	return self::where('id',$id)->delete($data);
+    	return self::where('id',$id)->delete();
     }
 // -------------------------------------
        //获取小说详情

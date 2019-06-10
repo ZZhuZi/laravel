@@ -21,16 +21,16 @@ class PermissionAuth
 
 
         // 获取当前用户的权限节点的url地址
-        // $urls = ToolsAdmin::getUrlsByUserId($session->get('user,user_id'));
+        $urls = ToolsAdmin::getUrlsByUserId($session->get('user,user_id'));
 
         //当前路由名字
         $route = \Route::currentRouteName();
         // dd($route);
         
         //当前用户不是超管并且没有访问当前路由的权限
-        // if($session->get('user.is_super') !=2 && !in_array($route,$urls)){
-        //     return redirect('/403')->send();
-        // }
+        if($session->get('user.is_super') !=2 && !in_array($route,$urls)){
+            return redirect('/403')->send();
+        }
 
         return $next($request);
     }

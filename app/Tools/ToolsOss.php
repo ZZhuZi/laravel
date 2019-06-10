@@ -17,28 +17,36 @@ class ToolsOss
     	$config = \Config::get('oss');
 
     	$accessKeyId = $config['accessKeyId']; //访问阿里云access权限的账号
-    	$accessKeySecret = $congfig['accessKeySecret']; //访问阿里云access权限的账号秘钥
+    	$accessKeySecret = $config['accessKeySecret']; //访问阿里云access权限的账号秘钥
     	$this->endpoint = $config['endpoint'];  //权限节点信息
-    	$this->bucket = $config['bucket']; //权限空间的名字
+    	$this->bucket = $config['bucket']; //存储空间的名字
 
     	try {
     		//实例化oss客户端对限
-    		$this->ossClient = new ossClient($accessKeyId,$accessKeySecret,'http://'.$this->endpoint);
-    	} catch (\Exception $e) {
+    		$this->ossClient = new OssClient($accessKeyId,$accessKeySecret,'http://'.$this->endpoint);
+    	} catch (OssException $e) {
     		\Log::error('Oss对象存储类实例化失败',[$e->getMessage,$e->getCode()]);
 
     	}
 
     }
 
+    // 文件名随机生成
+    public static function fileName($files)
+    {
+       $filename = "/".date('YmdHis',time()).rand(10000,99999).".".$files->extension(); 
+       return $filename;
+    }
+
     //oss文件上传的函数
     public function putFile($files)
     {
     	//文件上传的目录
-    	$bassPath = 'uploads/'.date('Y-m-d',time());
+    	$basePath = 'uploads/'.date('Y-m-d',time());
+        // dd($files);     //图片是对象
     	//文件名字
-    	$filename = '/'.date('YmdHis',time()).rand(0,10000).'.'.$files->extension();
-
+    	// $filename = "/".date('YmdHis',time()).rand(10000,99999).".".$files->extension();
+        $filename = ToolsOss::fileName($files);
     	//文件要上传的路径
     	$object = $basePath.$filename;
     	try {
@@ -46,12 +54,12 @@ class ToolsOss
     		$exists = $this->ossClient->doesObjectExist($this->bucket,$object);
 
     		if($exists){
-    			\Log::error('上传的文件已经存在，文件路径是：'.$object);
+    			\Log::error('上传的文件已经存在,文件路径是：'.$object);
     			return $object;
     		}
     		//执行文件的上传
     		$this->ossClient->uploadFile($this->bucket,$object,$files->path());
-    	} catch (\Exception $e) {
+    	} catch (OssException $e) {
     		\Log::error('Oss文件上传失败',[$e->getMessage(),$e->getCode()]);
     		return $object;
     	}
@@ -70,6 +78,7 @@ class ToolsOss
 
     		return $signUrl;
     	}
+        // dd($signUrl);
 
     	return "http://".$this->bucket.'.'.$this->endpoint.'/'.$filePath;
 

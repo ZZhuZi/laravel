@@ -26,6 +26,7 @@ class PermissionController extends Controller
      	$return['data'] = $list;
 
         // dd($return);
+        // dd($_SERVER);
      	return json_encode($return);
     }
     /*

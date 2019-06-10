@@ -18,7 +18,7 @@
             {{ session('msg') }}
         </div>
     @endif
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" id="alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <span id="error_msg"></span>
     </div>
@@ -46,18 +46,18 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">商品分类</label>
                     <div class="col-sm-4">
-                        <select class="form-control" name="cate_id">
+                        <select class="form-control" name="cate_id"> 
                             @if(!empty($cate_list))
-                            @foreach($cate_list as $cate)
-                            <option value="{{$cate['id']}}">{{str_repeat('--',$cate['level'])}}{{$cate['cate_name']}}</option>
-                            @endforeach
+                                @foreach($cate_list as $cate)
+                                    <option value="{{$cate['id']}}">{{str_repeat('--',$cate['level'])}}{{$cate['cate_name']}}</option>
+                                @endforeach
                             @endif
                         </select>
                     </div>
                      <label class="col-sm-2 control-label">商品品牌</label>
                     <div class="col-sm-4">
                         <select class="form-control" name="brand_id">
-                           @if(!empty($brand_list))
+                            @if(!empty($brand_list))
                                 @foreach($brand_list as $brand)
                                     <option value="{{$brand['id']}}">{{$brand['brand_name']}}</option>
                                 @endforeach
@@ -69,7 +69,7 @@
                     <label class="col-sm-2 control-label">商品类型</label>
                     <div class="col-sm-4">
                         <select class="form-control" name="type_id">
-                            @if(!empty($type_list))
+                             @if(!empty($type_list))
                                 @foreach($type_list as $type)
                                     <option value="{{$type['id']}}">{{$type['type_name']}}</option>
                                 @endforeach
@@ -78,37 +78,37 @@
                     </div>
                     <label class="col-sm-2 control-label">商品名称</label>
                     <div class="col-sm-4">
-                        <input type="text" placeholder="商品名称" class="form-control" name="goods_name" value="" />
+                        <input type="text" placeholder="商品名称" class="form-control" name="goods_name" value="brath" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">商品货号</label>
                     <div class="col-sm-4">
-                        <input type="text" placeholder="商品货号" class="form-control" name="goods_sn" value="" />
+                        <input type="text" placeholder="商品货号" class="form-control" name="goods_sn" value="{{$goods_sn}}" />
                     </div>
                     <label class="col-sm-2 control-label">关键字</label>
                     <div class="col-sm-4">
-                        <input type="text" placeholder="关键字" class="form-control" name="kewords" value="" />
+                        <input type="text" placeholder="关键字" class="form-control" name="keywords" value="衣服" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">市场售价</label>
                     <div class="col-sm-4">
-                        <input type="text" placeholder="市场售价" class="form-control" name="shop_price" value="" />
+                        <input type="text" placeholder="市场售价" class="form-control" name="shop_price" value="999" />
                     </div>
                     <label class="col-sm-2 control-label">本店售价</label>
                     <div class="col-sm-4">
-                        <input type="text" placeholder="本店售价" class="form-control" name="market_price" value="" />
+                        <input type="text" placeholder="本店售价" class="form-control" name="market_price" value="99" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">商品库存</label>
                     <div class="col-sm-4">
-                        <input type="text" placeholder="商品库存" class="form-control" name="goods_num" value="" />
+                        <input type="text" placeholder="商品库存" class="form-control" name="goods_num" value="200" />
                     </div>
                     <label class="col-sm-2 control-label">库存报警</label>
                     <div class="col-sm-4">
-                        <input type="text" placeholder="库存报警" class="form-control" name="warn_num" value="" />
+                        <input type="text" placeholder="库存报警" class="form-control" name="warn_num" value="1" />
                     </div>
                 </div>
 
@@ -154,7 +154,7 @@
                     </div>
                     <label class="col-sm-2 control-label">赠送积分</label>
                     <div class="col-sm-4">
-                        <input type="text" placeholder="赠送积分" class="form-control"  name="give_score" value="0" />
+                        <input type="text" placeholder="赠送积分" class="form-control"  name="give_score" value="1" />
                     </div>
                 </div>
         </div>
@@ -163,7 +163,7 @@
         <div class="panel-body panel-body-nopadding" v-show="tab==2">
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <textarea id="content" name="goods_desc"></textarea>
+                        <textarea id="content" name="goods_desc" >eeee</textarea>
                     </div>
                 </div>
         </div>
@@ -191,12 +191,12 @@
                             <label class="col-sm-2 control-label">图片描述</label>
                             <input type="hidden" value="">
                             <div class="col-sm-4">
-                                <input type="text"  value="" class="form-control" name="img[][image_name]">
+                                <input type="text"  value="" class="form-control" name="gallery[][image_name]">
                                 <span class="help-block"></span>
                             </div>
                             <label class="col-sm-2 control-label">商品图片</label>
                             <div class="col-sm-3">
-                                <input type="file" placeholder="输入用户名" value="" class="form-control" name="img[][image_url]">
+                                <input type="file" placeholder="输入用户名" value="" class="form-control" name="gallery[][image_url]">
                                 <span class="help-block"></span>
                             </div>
                             <div class="col-sm-1">
@@ -257,9 +257,7 @@
                     }
                 }
             })
-
-            $(".alert-danger").hide();
-
+            $("#alert-danger").hide();
             $("#btn-save").click(function(){
                 var goods_num = $("input[name=goods_name]").val();
                 var goods_sn = $("input[name=goods_sn]").val();
@@ -267,35 +265,27 @@
                 var market_price = $("input[name=market_price]").val();
                 var goods_num = $("input[name=goods_num]").val();
                 var warn_num = $("input[name=warn_num]").val();
-
                 if(goods_num == ''){
                     $("#error_msg").text('商品名称不能为空');
                     $(".alert-danger").show();
                     return false;
                 }
-
                 if(goods_sn == ''){
                     $("#error_msg").text('商品货号不能为空');
                     $(".alert-danger").show();
                     return false;
                 }
-
                 if(market_price == '' || market_price == ''){
                      $("#error_msg").text('价格不能为空');
                      $(".alert-danger").show();
                      return false;
                 }
-
                 if(goods_num == '' || warn_num == ''){
                      $("#error_msg").text('库存不能为空');
                      $(".alert-danger").show();
                      return false;
                 }
-
             });
-
-
-
             //开始日期
             $("#shop_time").datetimepicker({
                 format: 'yyyy-mm-dd hh:ii:ss',

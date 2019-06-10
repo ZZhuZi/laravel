@@ -1,5 +1,5 @@
 <?php
-name App\Tools;
+namespace App\Tools;
 use Mail;
 class ToolsEmail
 {

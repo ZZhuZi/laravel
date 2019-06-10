@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Chapter extends Model
+class NovelChapter extends Model
 {
     //
       protected $table = "chapter";

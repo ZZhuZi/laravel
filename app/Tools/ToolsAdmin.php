@@ -58,7 +58,7 @@ class ToolsAdmin
 	* @param $files $object
 	* #return string url
 	*/
-	public static function uploadFile($files,$isOss=true){
+	public static function uploadFile($files,$isOss=false){
 		//参数为空
 		if(empty($files)){
 			return '';
@@ -74,13 +74,14 @@ class ToolsAdmin
 		if(!file_exists($basePath)){
 			@mkdir($basePath,755,true);  //@错误抑制付  true 循环创建  
 		}
-
+		// dd($files);
 		// 文件名字
-		$filename = "/".date('YmdHis',time()).rand(0,10000).'.'.$files->extension();
-
+		// $filename = ToolsOss::fileName($files);
+	    $filename = "/".date("YmdHis",time()).rand(10000,99999).".".$files->extension();
+	
 		@move_uploaded_file($files->path(), $basePath.$filename);  // 执行文件上传
 
-		return '/'.$basePath.$filename;
+		return $basePath.$filename;
 	} 
 
 	/*
@@ -93,7 +94,7 @@ class ToolsAdmin
 			return [];
 		}
 
-		$userRole = new \APP\Model\UserRole(); //
+		$userRole = new \App\Model\UserRole(); //
 		// $userRole = new UserRole();
 
 		$roles = $userRole->getByUserId($userId); //根据用户id去查询角色id
@@ -119,7 +120,7 @@ class ToolsAdmin
 	}
 
 	public static function buildGoodsSn($string = 16){
-		return "JY".date('YmdH',time()).rand(1,1000);
+		return "JY".date('YmdH',time()).rand(100000,999999);
 	}
 }
 

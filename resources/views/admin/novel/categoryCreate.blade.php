@@ -33,7 +33,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">分类名称</label>
               <div class="col-sm-6">
-                <input type="text" placeholder="分类名称" class="form-control" name="username" />
+                <input type="text" placeholder="分类名称" class="form-control" name="c_name" />
               </div>
             </div> 
       

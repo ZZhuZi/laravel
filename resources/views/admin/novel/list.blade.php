@@ -38,16 +38,16 @@
                           <td>{{ $novel['name']}}</td>
                           <td>{{ $novel['status'] == 1 ? "连载": "完结"}}</td>
                           <td>
-                             <a href="{{ route('admin.novel.edit',['id'=>$novel['id']])}}" class="btn btn-sm btn-primary">编辑</a>&nbsp;&nbsp;
-                              <a href="{{ route('admin.chapter.create',['id'=>$novel['id']])}}" class="btn btn-sm btn-success">章节添加</a>&nbsp;&nbsp;
-                               <a href="{{ route('admin.chapter.list',['id'=>$novel['id']])}}" class="btn btn-sm btn-success">章节查看</a>&nbsp;&nbsp;
-                            <a href="{{ route('admin.novel.del',['id'=>$novel['id']])}}" class="btn btn-sm btn-danger">删除</a>
+                             <a href="{{route('admin.novel.edit',['id'=>$novel['id']])}}" class="btn btn-sm btn-primary">编辑</a>&nbsp;&nbsp;
+                              <a href="{{route('admin.novel.chapter.create',['id'=>$novel['id']])}}" class="btn btn-sm btn-success">章节添加</a>&nbsp;&nbsp;
+                               <a href="{{route('admin.novel.chapter.list',['id'=>$novel['id']])}}" class="btn btn-sm btn-success">章节查看</a>&nbsp;&nbsp;
+                            <a href="{{route('admin.novel.del',['id'=>$novel['id']])}}" class="btn btn-sm btn-danger">删除</a>
                           </td>
                          </tr>
                         @endforeach
 
                       @endif
-                    	
+                      
                     </tbody>
                 </table>
                 {{$novels->links()}}

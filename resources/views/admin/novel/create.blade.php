@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-	<div class="alert alert-danger">
+  <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <span id="error_msg"></span>
     </div>
@@ -27,93 +27,95 @@
         </div>
         <div class="panel-body panel-body-nopadding">
 
-          <form class="form-horizontal form-bordered" action="{{route('admin.novel.store')}}" method="post">
+          <form class="form-horizontal form-bordered" action="{{route('admin.novel.store')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
-            <div class="form-group">
+
+             <div class="form-group">
               <label class="col-sm-3 control-label">小说分类</label>
-                <select name="c_id" id="" class="form-control">
+              <div class="col-sm-6">
+                <select name="c_id" class="form-control">
                   @if(!empty($c_list))
                     @foreach($c_list as $cate)
                       <option value="{{$cate['id']}}">{{$cate['c_name']}}</option>
                     @endforeach
                   @endif
-                </select>  
+                </select>
+              </div>
             </div> 
 
-            <div class="form-group">
+             <div class="form-group">
               <label class="col-sm-3 control-label">小说作者</label>
-                <select name="c_id" id="" class="form-control">
+              <div class="col-sm-6">
+                <select name="a_id" class="form-control">
                   @if(!empty($a_list))
                     @foreach($a_list as $author)
                       <option value="{{$author['id']}}">{{$author['author_name']}}</option>
                     @endforeach
                   @endif
-                </select>  
+                </select>
+              </div>
             </div> 
 
             <div class="form-group">
               <label class="col-sm-3 control-label">小说标题</label>
               <div class="col-sm-6">
-                <input type="text" placeholder="小说标题" class="form-control" name="name" value=""/>
+                <input type="text" placeholder="小说标题" class="form-control" name="name" value="" />
               </div>
-            </div> 
+            </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">小说封面</label>
               <div class="col-sm-6">
-                <input type="text" placeholder="用户头像" class="form-control" name="image_url" value=""/>
+                <input type="file" placeholder="用户头像" class="form-control" name="image_url" />
               </div>
             </div> 
+
             <div class="form-group">
               <label class="col-sm-3 control-label">小说标签</label>
               <div class="col-sm-6">
                 <input type="text" placeholder="小说标签" class="form-control" name="tags" value="" />
               </div>
             </div> 
+
             <div class="form-group">
               <label class="col-sm-3 control-label">小说状态</label>
               <div class="col-sm-6">
-              <div class="radio"><label for=""><input type="radio" name="status" value="1" checked>连载</label></div>
-              <div class="radio"><label for=""><input type="radio" name="status" value="2">完结</label></div>
+               <div class="radio"><label><input type="radio" name="status" value="1" checked> 连载</label></div>
+               <div class="radio"><label><input type="radio" name="status" value="2" >完结</label></div>
               </div>
-            </div> 
+            </div>
 
             <div class="form-group">
               <label class="col-sm-3 control-label">小说简介</label>
-              <div class="col-sm-6">
-              <textarea name="desc" id="container" cols="30" rows="10"></textarea>
+              <div class="col-sm-8">
+                <textarea class="form-control" name="desc" style="border: none;" id="container"></textarea>
               </div>
             </div> 
            
             <div class="panel-footer">
-			 <div class="row">
-				<div class="col-sm-6 col-sm-offset-3">
-				  <button class="btn btn-primary btn-danger" id="btn-save">保存小说</button>&nbsp;
-				</div>
-			 </div>
-		  </div><!-- panel-footer -->
+       <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <button class="btn btn-primary btn-danger" id="btn-save">保存小说</button>&nbsp;
+        </div>
+       </div>
+      </div><!-- panel-footer -->
           </form>
           
         </div><!-- panel-body -->
-
+        <script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+        <script type="text/javascript" src="/js/ueditor/ueditor.all.min.js"></script>
         <script type="text/javascript">
-
-        	$(".alert-danger").hide();
-
-        	$("#btn-save").click(function(){
-
-        		var name = $("input[name=name]").val();
-
-        		var url = $("input[name=url]").val();
-
-        		if(name == '' || url == ''){
-        			$("#error_msg").text('名字或url地址不能为空');
-        			$(".alert-danger").toggle();
-        			return false;
-        		}
-
-        	});
-
+          var ue = UE.getEditor('container');
+          $(".alert-danger").hide();
+          $("#btn-save").click(function(){
+            var name = $("input[name=name]").val();
+            var url = $("input[name=url]").val();
+            if(name == '' || url == ''){
+              $("#error_msg").text('名字或url地址不能为空');
+              $(".alert-danger").toggle();
+              return false;
+            }
+          });
         </script>
         
 @endsection

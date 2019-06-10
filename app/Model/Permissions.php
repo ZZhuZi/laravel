@@ -65,7 +65,7 @@ class Permissions extends Model
 	* @return array
 	*/
 	public static function getUrlsByIds($pids){
-		$list = self::select('url')
+		$permissions = self::select('url')
 							->whereIn('id',$pids)
 							->get()
 							->toArray();

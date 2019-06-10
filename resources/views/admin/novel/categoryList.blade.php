@@ -26,16 +26,16 @@
 						<td>{{$category['id']}}</td>
 						<td>{{$category['c_name']}}</td>
 						<td>
-						<!-- <a href="{{ route('admin.category.edit',['id'=>$category['id'] ])}}">修改</a> -->
-						<!-- <a href="{{ route('admin.category.permission',['id'=>$category['id'] ])}}">权限</a> -->
+					
 						<a href="{{ route('admin.novel.category.del',['id'=>$category['id'] ])}}">删除</a>
 						</td>
 					</tr>
 					@endforeach
 				@endif
 				</tbody>
-				{{$categorys->links()}}
+				
 			</table>
+			{{$categorys->links()}}
 		</div>
 		
 	</div>

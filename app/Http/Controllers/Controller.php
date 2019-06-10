@@ -6,16 +6,23 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+// 指定允许其他域名访问  
+header('Access-Control-Allow-Origin:*');  
+// 响应类型  
+header('Access-Control-Allow-Methods:POST, GET, OPTIONS, PUT, DELETE');  
+// 响应头设置  
+header('Access-Control-Allow-Headers:x-requested-with,content-type');
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     const
-        PAGE_SIZE = 10,
+        PAGE_SIZE = 5,
         END       = TRUE;
 
     //删除_token 的值
+
     public function delToken($params){
     	if(!isset($params['_token'])){
     		return false;
@@ -38,6 +45,7 @@ class Controller extends BaseController
     }
     // 保存数据并且获取id，单条
     public function storeDataGetId($object,$params){
+        
         return $object->insertGetId($params);
     }
 
@@ -55,22 +63,74 @@ class Controller extends BaseController
         $info = $object->select($fields)->where($key,$id)->first();
         return $info;
     }
+
+      //通过where条件查询记录
+    public function getDataInfoByWhere($object,$where=[]){
+        $info = $object->where($where)->first();
+        return $info;
+    } 
+
   //没有分页的数据列表
     public function getDataList($object, $where = [])
     {
         $list = $object->where($where)->get()->toArray();
         return $list;
     }
+    //获取限制条数
+    public function getLimitDataList($object,$limit=5,$where=[]){
+        $list = $object->where($where)->limit($limit)->get()->toArray();
+        return $list;
+    }
     //获取带有分页的数据列表
     public function getPageList($object, $where=[])
     {
         $list = $object->where($where)
+                    ->orderBy('id','desc')
                     ->paginate(self::PAGE_SIZE);
         return $list;
     }
     // 删除公共方法
     public function delData($object,$id,$key="id"){
         return $object->where($key,$id)->delete();
+    }
+
+     /**
+     * @desc 接口返回json的格式数据
+     * @param array $data
+     */
+    public function returnJson($data = [])
+    {
+        if(!headers_sent()){
+            header(sprintf('%s:%s','Content-Type','application/json'));
+        }
+        exit(json_encode($data));
+    }
+    //校验token是否过期的方式
+    public function checkToken($token)
+    {
+            //实例化redis
+            $redis = new \Redis();
+            //链接redis
+            $redis->connect(env("REDIS_HOST"), env("REDIS_PORT"));
+            $data = $redis->get($token);
+            if(!empty($data)){
+                //查询出用户的信息
+                $user = \DB::table('jy_user')->where(['phone'=>$data])->first();
+                $return = [
+                    'status' => true,
+                    'data'   => [
+                        'id'  => $user->id,
+                        'phone' => $user->phone,
+                        'username' => $user->username,
+                        'address_id' => $user->address_id,
+                    ],
+                ];
+            }else{
+                $return = [
+                    'status' => false
+                ];
+            }
+            return $return;
     }
  
 }

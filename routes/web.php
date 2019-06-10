@@ -55,8 +55,16 @@ Route::prefix("study")->group(function(){
 // 后台管理
 
 Route::get('admin/login','Admin\LoginController@index');    //登录页面
-Route::get('admin/doLogin','Admin\LoginController@doLogin'); //执行登录
+Route::post('admin/doLogin','Admin\LoginController@doLogin'); //执行登录
 Route::get('admin/loginout','Admin\LoginController@loginout'); //用户退出
+
+Route::get('admin/forget/password','Admin\LoginController@forget'); //忘记密码
+Route::any('admin/forget/sendEmail','Admin\LoginController@sendEmail');
+
+// 重置密码
+Route::get('admin/forget/reset','Admin\LoginController@reset');
+Route::post('admin/rest/password/save','Admin\LoginController@save');
+
 
 Route::get('403',function(){
 	return view('403');
@@ -101,6 +109,11 @@ Route::middleware(['admin_auth','permission_auth'])->prefix('admin')->group(func
 	Route::any('/user/edit/{id}','Admin\AdminUsersController@edit')->name('admin.user.edit');
 	//用户执行编辑页面
 	Route::post('/user/doEdit','Admin\AdminUsersController@doEdit')->name('admin.user.doEdit');
+
+    Route::get('/user/password','Admin\AdminUsersController@password')->name('admin.user.password');
+    Route::post('/user/password/save','Admin\AdminUsersController@updatePwd')->name('admin.user.save');
+
+
     ##################################[用户相关]#################################################33
 
 
@@ -147,7 +160,7 @@ Route::middleware(['admin_auth','permission_auth'])->prefix('admin')->group(func
     Route::any('/novel/doEdit','Admin\NovelController@doEdit')->name('admin.novel.doEdit');
 
      //小说章节列表
-    Route::post('/novel/chapter/list/{novel_id?}','Admin\NovelChapterController@list')->name('admin.novel.chapter.list');
+    Route::any('/novel/chapter/list/{novel_id?}','Admin\NovelChapterController@list')->name('admin.novel.chapter.list');
     //小说章节添加
     Route::any('/novel/chapter/create/{novel_id}','Admin\NovelChapterController@create')->name('admin.novel.chapter.create');
      //小说章节执行添加
@@ -158,6 +171,19 @@ Route::middleware(['admin_auth','permission_auth'])->prefix('admin')->group(func
     Route::any('/novel/chapter/edit/{id}','Admin\NovelChapterController@edit')->name('admin.novel.chapter.edit');
     //小说章节执行编辑
     Route::post('/novel/chapter/doEdit','Admin\NovelChapterController@doEdit')->name('admin.novel.chapter.doEdit');
+
+      //小说分类列表
+    Route::any('/novel/category/list','Admin\NovelCategoryController@list')->name('admin.novel.category.list');
+    //小说分类添加
+    Route::any('/novel/category/create','Admin\NovelCategoryController@create')->name('admin.novel.category.create');
+     //小说分类执行添加
+    Route::post('/novel/category/store','Admin\NovelCategoryController@store')->name('admin.novel.category.store');
+    //小说分类执行删除
+    Route::any('/novel/category/del/{id}','Admin\NovelCategoryController@del')->name('admin.novel.category.del');
+    //小说分类编辑
+    // Route::any('/novel/category/edit/{id}','Admin\NovelCategoryController@edit')->name('admin.novel.category.edit');
+    // //小说分类执行编辑
+    // Route::post('/novel/category/doEdit','Admin\NovelCategoryController@doEdit')->name('admin.novel.category.doEdit');
 //+++++++++++++++++++++++++++++++++++++++++小说评论和商品评论相撞+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   //小说评论列表
   Route::post('/novel/comment/list','Admin\NovelCommentController@list')->name('admin.novel.comment.list');
@@ -293,7 +319,7 @@ Route::middleware(['admin_auth','permission_auth'])->prefix('admin')->group(func
      Route::post('goods/store','Admin\GoodsController@store')->name('admin.goods.store');
 
       //商品修改属性页面
-     Route::get('goods/change/attr','Admin\GoodsController@changeAttr')->name('admin.goods.change.attr');
+     Route::any('goods/change/attr','Admin\GoodsController@changeAttr')->name('admin.goods.change.attr');
        //商品修改页面
      Route::get('goods/edit/{id}','Admin\GoodsController@edit')->name('admin.goods.edit');
      // 执行修改商品位操作
@@ -440,6 +466,29 @@ Route::middleware(['admin_auth','permission_auth'])->prefix('admin')->group(func
      // 执行批次
      Route::get('batch/do/{id}','Admin\BatchController@doBatch')->name('admin.batch.do');
      /*#############################[批次相关]################################################*/
+
+     /*#############################[订单管理]################################################*/
+     //订单列表页面
+     Route::get('order/list','Admin\OrderController@list')->name('admin.order.list');
+     //订单详情页面
+     Route::get('order/detail/{id}','Admin\OrderController@detail')->name('admin.order.detail');
+     // 商品导出
+     Route::get('order/export','Admin\OrderController@export')->name('admin.order.export');
+
+     // 导入
+     Route::get('order/import','Admin\OrderController@import')->name('admin.order.import');
+     Route::post('order/doImport','Admin\OrderController@doImport')->name('admin.order.doImport');
+
+     /*#############################[订单管理]################################################*/
+
+
+
+
+     Route::any('text/index','Admin\TextController@index')->name('admin.text.index');
+     Route::any('text/login','Admin\TextController@login')->name('admin.text.login');
+     Route::any('text/doLogin','Admin\TextController@doLogin')->name('admin.text.doLogin');
+     Route::any('text/checkedToken','Admin\TextController@checkedToken')->name('admin.text.checkedToken');
+
 
 
 

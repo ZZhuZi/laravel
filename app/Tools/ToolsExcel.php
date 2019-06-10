@@ -1,7 +1,7 @@
 <?php 
 namespace App\Tools;
 use Excel;
-error_reporting(E_all&~E_NOTICE);
+error_reporting( E_ALL&~E_NOTICE );
 /*
 * Excel 文件批量导入导出的功能
 */
@@ -13,9 +13,10 @@ class ToolsExcel
 		if(empty ($files)){
 			return false;
 		}
-
+		// dd($files);
 		$data = Excel::load($files->path(),function($reader){
 		})->toArray();
+		// dd($data);
 		return $data;
 	}
 	//文件导出操作
@@ -26,15 +27,15 @@ class ToolsExcel
 		}
 
 		/*
-			如果你要导出scv或者xlsx文件，只需有export方法中的参数改成CSV或者xlsx即可。
-			如果还有将该Excel文件保存到服务器上，可以使用store方法;
+	    * 如果你要导出csv或者xlsx文件，只需将 export 方法中的参数改成csv或xlsx即可。
+	    * 如果还要将该Excel文件保存到服务器上，可以使用 store 方法：
 		*/
-
-			Excel::create(iconv('UTF-8','GBK',date('YmdHis').$title),function($excel) use($exportData){
+		// dd($exportData);
+			Excel::create(iconv('UTF-8', 'GBK', date("YmdHis").$title),function($excel) use ($exportData){
 				$excel->sheet('goods',function($sheet) use ($exportData){
-					$sheet->rowa($exportData);
+					$sheet->rows($exportData);
 				});
-			})->export('xls');
+			})->export('csv');
 	}
 }
 

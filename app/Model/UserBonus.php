@@ -38,14 +38,21 @@ class UserBonus extends Model
     //执行发送红包操作
     public function sendBonusMany($userIds,$bonusId,$expires=7){
         $bonusInfo = [];
+
         foreach ($userIds as $key => $value) {
             $bonusInfo[] = [
                 'user_id' =>$value,
                 'bonus_id' => $bonusId,
                 'start_time' =>date('Y-m-d H:i:s'),
-                'end_time' =>date('Y-m-d H:i:s',strtotime("+ ".$params['expires']." days"))
+                'end_time' =>date('Y-m-d H:i:s',strtotime("+ ".$expires." days"))
             ];
         }
+        // dd($value);
+         \Log::info("4");
+          // \Log::info($bonusInfo);
+         // $redis = new \Redis();
+         // $redis->connect(env("REDIS_HOST"),env("REDIS_PORT"));
+         // hset($bonusId,$bonusInfo);
         return self::insert($bonusInfo);
     }
 }

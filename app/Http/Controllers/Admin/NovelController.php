@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Model\Novel;
-use App\Model\Category;
+use App\Model\NovelCategory;
 use App\Model\Author;
 use App\Tools\ToolsAdmin;
 
@@ -25,7 +25,7 @@ class NovelController extends Controller
      //小说添加页面
     public function create()
     {
-    	$category = new Category();
+    	$category = new NovelCategory();
     	$author = new Author();
     	//获取分类的列表
     	$assign['c_list'] = $category->getCategory();
@@ -42,6 +42,7 @@ class NovelController extends Controller
     	$params = $request->all();
 
     	$params['image_url'] = ToolsAdmin::uploadFile($params['image_url']);
+// dd(1);
 
     	unset($params['_token']);
 
