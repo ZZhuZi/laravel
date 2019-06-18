@@ -57,7 +57,7 @@ class TextController extends Controller
     	// $db2 = Single::getInstance(2);
     	// $db2 -> getName();
     	// -----------------------------------------------------
-    	// // 冒泡排序
+    	// // // 冒泡排序
     	// $arr = array(23,5,26,4,85,9,10,2,55,44,21,39,11,16,88,421,226,588);
     	// $m = count($arr);
     	// for ($i=0; $i <= $m ; $i++) { 
@@ -69,10 +69,11 @@ class TextController extends Controller
     	// 		} 
     	// 	}
     	// }
+     //  // dd($m);
     	// // dd($arr);
 
     	// for ($i=0; $i <= $m ; $i++) { 
-    	// 	for ($n=0; $n <$m-$i ; $n++) { 
+    	// 	for ($n=0; $n <$m-$i-1 ; $n++) { 
     	// 		if($arr[$n] < $arr[$n+1]){
     	// 			$a= $arr[n+1];
     	// 			$arr[$n+1] = $arr[$n];
@@ -80,6 +81,8 @@ class TextController extends Controller
     	// 		}
     	// 	}
     	// }
+
+     //  dd($arr);
     	// -----------------------------------------------------------------------
     	// 递归查询目录结构
     	
@@ -89,6 +92,13 @@ class TextController extends Controller
     	// mvp mvc mvvm 
     	// sql 连表查询 
 
+// $ar = '1';
+//       // $ar =null ;
+// // dd(empty($ar));
+// dd(isset($ar));
+
+      define("A",["2",8]);
+      dd(A);
 
 
 

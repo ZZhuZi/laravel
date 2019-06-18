@@ -46,8 +46,6 @@ Route::prefix("study")->group(function(){
     Route::get('lottery/index','Study\LotteryController@index'); //抽奖页面
     Route::get('lottery/do','Study\LotteryController@doLottery'); //抽奖执行页面
 
-
-
 });
 
 

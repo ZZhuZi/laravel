@@ -13,12 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        // 'App\Events\Event' => [
-        //     'App\Listeners\EventListener',
-        // ],
-        'App\Events\RegisterSuccess' => [
-            'App\Listeners\SendBonus',  // 发红包
-            'App\Listeners\CreaterInvite', //创建邀请关系
+        'App\Events\Event' => [
+            'App\Listeners\EventListener',
         ],
     ];
 
