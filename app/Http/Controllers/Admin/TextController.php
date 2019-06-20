@@ -97,8 +97,8 @@ class TextController extends Controller
 // // dd(empty($ar));
 // dd(isset($ar));
 
-      define("A",["2",8]);
-      dd(A);
+      // define("A",["2",8]);
+      // dd(A);
 
 
 
@@ -154,6 +154,55 @@ class TextController extends Controller
    		}
    		$return['data'] = $data;
    		return json_encode($return);
+   }
+
+   public function sendSms($phone,$code){
+     $params = [
+          'code' =>$code;
+     ];
+
+
+   }
+
+   public function checkPhone(Request $request){
+      $params = $request->all();
+      $phone = $params['phone'];
+      $userId = $params['user_id'];
+
+      $data = DB::table('text_user')->where('id',$userId)->first();
+      if(!isset($data)){
+          $return = [
+            'code' => 4003,
+            'msg'  => "手机号错误"
+         ];
+      }
+
+      $code = rand(100000,999999);
+      $redis = new \Redis();
+      $redis->connet('127.0.0.1',6379);
+      $key = "PHONE".$phone."CODE";
+      $redis->setex($key,1800,$code);
+
+      $return['data'] = $code;
+      return json_encode($return);
+
+   }
+
+   public function editName(Request $request){
+      $params = $request->all();
+      $newName = $params['username'];
+      $userId = $params['user_id'];
+
+      if(!iseet($newName) || empty($newName)){
+        $return = [
+            'code' => 4004,
+            'msg'  => "新用户名格式不能为空"
+        ];
+        return json_encode($return);
+      }
+      $data = DB::update("update `text_user` set name = $newName where id = $userId ");
+      $return['data'] = $data;
+      return json_encode($return);
    }
 
 }
