@@ -7206,6 +7206,7 @@ return array(
     'App\\Http\\Controllers\\Study\\GuessController' => $baseDir . '/app/Http/Controllers/Study/GuessController.php',
     'App\\Http\\Controllers\\Study\\LotteryController' => $baseDir . '/app/Http/Controllers/Study/LotteryController.php',
     'App\\Http\\Controllers\\Study\\SignController' => $baseDir . '/app/Http/Controllers/Study/SignController.php',
+    'App\\Http\\Controllers\\Test\\TestController' => $baseDir . '/app/Http/Controllers/Test/TestController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\AdminAuth' => $baseDir . '/app/Http/Middleware/AdminAuth.php',
     'App\\Http\\Middleware\\ApiAuth' => $baseDir . '/app/Http/Middleware/ApiAuth.php',

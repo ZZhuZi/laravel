@@ -101,7 +101,16 @@ class TextController extends Controller
       // dd(A);
 
 
+// echo (int)(1/2);
+// echo ceil(1/2);
+// echo round(1/2);
 
+//       $array = array('1','1');
+//       foreach ($array as $key => $value) {
+//         $value = 2;
+//       }
+//       // dd($array);
+// // dd();
 
     	// 登录
     	return view('text.index');
@@ -158,7 +167,7 @@ class TextController extends Controller
 
    public function sendSms($phone,$code){
      $params = [
-          'code' =>$code;
+          'code' =>$code
      ];
 
 

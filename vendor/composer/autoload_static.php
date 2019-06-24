@@ -7695,6 +7695,7 @@ class ComposerStaticInitf0598cee7183dc8667180346f21027c7
         'App\\Http\\Controllers\\Study\\GuessController' => __DIR__ . '/../..' . '/app/Http/Controllers/Study/GuessController.php',
         'App\\Http\\Controllers\\Study\\LotteryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Study/LotteryController.php',
         'App\\Http\\Controllers\\Study\\SignController' => __DIR__ . '/../..' . '/app/Http/Controllers/Study/SignController.php',
+        'App\\Http\\Controllers\\Test\\TestController' => __DIR__ . '/../..' . '/app/Http/Controllers/Test/TestController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AdminAuth' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminAuth.php',
         'App\\Http\\Middleware\\ApiAuth' => __DIR__ . '/../..' . '/app/Http/Middleware/ApiAuth.php',

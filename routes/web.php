@@ -490,11 +490,14 @@ Route::middleware(['admin_auth','permission_auth'])->prefix('admin')->group(func
 
 
 
-
-
-
-
 });
+
+// 微信公众号开发路由
+Route::prefix('weixin')->group(function(){
+    Route::any('index','Weixin\HomeController@index')->name('weixin.index');
+});
+
+
 
 // Route::middleware('AdminAuth')->prefix('admin')->group(function(){
 // 	Route::get('index','Admin\HomeController@index');
