@@ -13,7 +13,7 @@ class HomeController extends Controller
 	}
 
     //微信公众号接入方法
-    public function index()
+    public function index(Request $request)
     {
     	// 1 接受参数 signature nonce timestamp echostr
     	$nonce      =  $_GET['nonce'];

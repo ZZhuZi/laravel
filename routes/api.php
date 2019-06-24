@@ -109,3 +109,8 @@ Route::post("comment/del/{id}","Api\CommentController@del");
 
 // });
 /**************************************[电商类的接口]*****************************************************8*/
+
+
+Route::prefix('weixin')->group(function(){
+    Route::any('index','Weixin\HomeController@index')->name('weixin.index');
+});
